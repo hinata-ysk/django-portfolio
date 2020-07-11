@@ -14,4 +14,4 @@ class Post(models.Model):
         self.save()
 
     def __str__(self):
-        return '作成者：{0} >>{1} '.format(self.author, self.title)
+        return 'Created:{0} Title:{1}'.format(self.author, self.title)

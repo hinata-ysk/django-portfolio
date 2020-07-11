@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h4>記事一覧</h4>
+        </div>
+    </div>
+    <div></div>
+    <table class="table">
+        <thed>
+            <tr>
+                <td>タイトル</td>
+                <td>作成者</td>
+                <td>公開日</td>
+                <td>作成日</td>
+                <td>操作</td>
+            </tr>
+        </thed>
+        <tbody>
+            {% for post in posts %}
+            <tr>
+                <td>{{ post.title }}</td>
+                <td>{{ post.author }}</td>
+                <td>{{ post.published_date }}</td>
+                <td>{{ post.created_date }}</td>
+                <td>
+                    <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-outline-primary btn-sm">詳細</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
