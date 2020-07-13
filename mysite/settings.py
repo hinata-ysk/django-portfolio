@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todo.apps.TodoConfig',
+    'customauth.apps.CustomauthConfig',
     'bootstrap4',
 ]
 
@@ -123,3 +124,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = 'customauth.MyUser'
