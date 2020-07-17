@@ -24,7 +24,7 @@ def post_new(request):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()    
-            return redirect('post_detail', pk=post.pk)
+            return redirect('todo:post_detail', pk=post.pk)
     else:
         form = PostForm()
 
@@ -40,7 +40,7 @@ def post_edit(request, pk):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
-            return redirect('post_detail', pk=post.pk)
+            return redirect('todo:post_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
 
@@ -50,4 +50,4 @@ def post_edit(request, pk):
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
-    return redirect('post_list')
+    return redirect('todo:post_list')
