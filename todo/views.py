@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from .models import Post
-from .form import PostForm
+from .models import Post, Document
+from .forms import PostForm, DocumentForm
 
 
 def post_list(request):
@@ -51,3 +51,15 @@ def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('todo:post_list')
+
+def document_upload(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('todo:document_upload')
+    else:
+        form = DocumentForm()
+        obj = Document.objects.all()
+
+    return render(request, 'todo/document_upload.html', {'form': form, 'obj': obj})

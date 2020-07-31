@@ -133,3 +133,7 @@ LOGIN_REDIRECT_URL = 'todo:post_list'
 LOGOUT_REDIRECT_URL = 'accounts:login'
 
 AUTH_USER_MODEL = 'customauth.MyUser'
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

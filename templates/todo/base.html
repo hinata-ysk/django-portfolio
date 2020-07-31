@@ -45,6 +45,9 @@
                     <a class="nav-link" href="{% url 'todo:post_new' %}">ToDo 追加</a>
                 </li>
                 {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'todo:document_upload' %}">Document</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
                     {% if user.is_authenticated %}

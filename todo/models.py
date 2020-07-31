@@ -15,3 +15,8 @@ class Post(models.Model):
 
     def __str__(self):
         return 'Created:{0} Title:{1}'.format(self.author, self.title)
+
+class Document(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    photo = models.ImageField(upload_to='documents/', default='defo')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
