@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todo.apps.TodoConfig',
+    'portfolio.apps.PortfolioConfig',
     'customauth.apps.CustomauthConfig',
     'accounts.apps.AccountsConfig',
     'bootstrap4',
@@ -129,7 +130,7 @@ STATICFILES_DIRS = (
 
 # LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'todo:post_list'
+LOGIN_REDIRECT_URL = 'portfolio:index'
 LOGOUT_REDIRECT_URL = 'accounts:login'
 
 AUTH_USER_MODEL = 'customauth.MyUser'
