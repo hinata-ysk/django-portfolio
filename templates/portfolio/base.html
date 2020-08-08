@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ひなた - フリーランスエンジニア & サーバサイドエンジニア</title>
+<title>{{ about_info.title }}</title>
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -42,8 +42,9 @@
     <div class="container">
       <div class="row">
         <div class="intro-text">
-          <h1>こんにちは　私は <span class="name">ひなた</span></h1>
-          <p>フリーランスエンジニア & サーバサイドエンジニア</p>
+          <!-- <h1>こんにちは　私は <span class="name">ひなた</span></h1> -->
+          <h1>{{ about_info.main_text }}</h1>
+          <p>{{ about_info.sub_text }}</p>
           <a href="#about" class="btn btn-default btn-lg page-scroll">Learn More</a> </div>
       </div>
     </div>
@@ -55,47 +56,77 @@
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse"> <i class="fa fa-bars"></i> </button>
-        <a class="navbar-brand page-scroll" href="#page-top">ひなた - フリーランスエンジニア & サーバサイドエンジニア</a> </div>
+        <a class="navbar-brand page-scroll" href="#page-top">{{ about_info.title }}</a> </div>
       
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
         <ul class="nav navbar-nav">
           <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
           <li class="hidden"> <a href="#page-top"></a> </li>
-          <li> <a class="page-scroll" href="#about">About Me</a> </li>
-          <li> <a class="page-scroll" href="#skills">Skills</a> </li>
-          <li> <a class="page-scroll" href="#portfolio">Portfolio</a> </li>
-          <li> <a class="page-scroll" href="#resume">Resume</a> </li>
-          <li> <a class="page-scroll" href="#contact">Contact</a> </li>
+          {% if layout.about_me %}
+          <li> <a class="page-scroll" href="#about">自己紹介</a> </li>
+          {% endif %}
+          {% if layout.skill %}
+          <li> <a class="page-scroll" href="#skills">スキル</a> </li>
+          {% endif %}
+          {% if layout.portfolio %}
+          <li> <a class="page-scroll" href="#portfolio">ポートフォリオ</a> </li>
+          {% endif %}
+          {% if layout.experience %}
+          <li> <a class="page-scroll" href="#resume">経歴</a> </li>
+          {% endif %}
+          <!-- <li> <a class="page-scroll" href="#contact">Contact</a> </li> -->
+          <li class="nav-item dropdown">
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+            {% if user.is_authenticated %}
+                {{ user.get_short_name }}
+            {% else %}
+                ゲスト
+            {% endif %}
+            </a>
+            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+              <li>
+              {% if user.is_authenticated %}
+                <a class="dropdown-item" href="{% url 'accounts:logout' %}">ログアウト</a>
+              {% else %}
+                <a class="dropdown-item" href="{% url 'accounts:login' %}">ログイン</a>
+              {% endif %}
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 </div>
 <!-- About Section -->
+{% if layout.about_me %}
 <div id="about">
   <div class="container">
     <div class="section-title text-center center">
-      <h2>About Me</h2>
+      <h2>自己紹介</h2>
       <hr>
     </div>
     <div class="row">
-      <div class="col-md-12 text-center"><img src="{% static 'templatewire-verum/img/about.jpg' %}" class="img-responsive"></div>
+      <div class="col-md-12 text-center"><img src="{{ about_info.image.url }}" class="img-responsive"></div>
       <div class="col-md-8 col-md-offset-2">
         <div class="about-text">
-          <p>自己紹介１</p>
-          <p>自己紹介２</p>
+          <!-- <p>自己紹介１</p>
+          <p>自己紹介２</p> -->
+          <p>{{ about_info.text}}</p>
           <p class="text-center"><a class="btn btn-primary" href="https://hhh-sol.com"><i class="fa fa-pencil-square-o"></i> ブログ</a></p>
         </div>
       </div>
     </div>
   </div>
 </div>
+{% endif %}
 <!-- Skills Section -->
+{% if layout.skill %}
 <div id="skills" class="text-center">
   <div class="container">
     <div class="section-title center">
-      <h2>Skills</h2>
+      <h2>スキル</h2>
       <hr>
     </div>
     <div class="row">
@@ -120,11 +151,13 @@
     </div>
   </div>
 </div>
+{% endif %}
 <!-- Portfolio Section -->
+{% if layout.portfolio %}
 <div id="portfolio">
   <div class="container">
     <div class="section-title text-center center">
-      <h2>Portfolio</h2>
+      <h2>ポートフォリオ</h2>
       <hr>
     </div>
     <div class="categories">
@@ -132,9 +165,9 @@
         <li>
           <ol class="type">
             <li><a href="{% static 'templatewire-verum/#' %}" data-filter="*" class="active">All</a></li>
-            <li><a href="{% static 'templatewire-verum/#' %}" data-filter=".web">Web Design</a></li>
-            <li><a href="{% static 'templatewire-verum/#' %}" data-filter=".app">App Development</a></li>
-            <li><a href="{% static 'templatewire-verum/#' %}" data-filter=".branding">Branding</a></li>
+            {% for tag in tags %}
+            <li><a href="{% static 'templatewire-verum/#' %}" data-filter=".{{ tag.tag }}">{{ tag.tag }}</a></li>
+            {% endfor %}
           </ol>
         </li>
       </ul>
@@ -142,6 +175,18 @@
     </div>
     <div class="row">
       <div class="portfolio-items">
+        {% for portfolio in portfolios %}
+        <div class="col-sm-6 col-md-3 col-lg-3 {{ portfolio_tag_maps.portfolio.pk }} ">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="{% static 'templatewire-verum/img/portfolio/01-large.jpg' %}" title="Project description" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>{{ portfolio.title }}</h4>
+                <small>{{ portfolio.sub_title }}</small> </div>
+              <img src="{{ portfolio.image.url }}" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- 
         <div class="col-sm-6 col-md-3 col-lg-3 web">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="{% static 'templatewire-verum/img/portfolio/01-large.jpg' %}" title="Project description" rel="prettyPhoto">
@@ -214,11 +259,14 @@
               <img src="{% static 'templatewire-verum/img/portfolio/08-small.jpg' %}" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
+         -->
       </div>
     </div>
   </div>
 </div>
+{% endif %}
 <!-- Achievements Section -->
+<!-- 
 <div id="achievements" class="text-center">
   <div class="container">
     <div class="section-title center">
@@ -249,25 +297,32 @@
     </div>
   </div>
 </div>
+-->
 <!-- Resume Section -->
+{% if layout.resume %}
 <div id="resume" class="text-center">
   <div class="container">
     <div class="section-title center">
-      <h2>Experience</h2>
+      <h2>経験</h2>
       <hr>
     </div>
     <div class="row">
       <div class="col-lg-12">
         <ul class="timeline">
+          {% for project in projects %}
+          {% if forloop.first %}
           <li>
+          {% else %}
+          <li class="timeline-inverted">
+          {% endif %}
             <div class="timeline-image">
-              <h4>Feb 2013 <br>
+              <h4>{{ project.term_to|date:'Y-m-d' }}<br>
                 - <br>
-                Present </h4>
+                {{ project.term_from|date:'Y-m-d' }} </h4>
             </div>
             <div class="timeline-panel">
               <div class="timeline-heading">
-                <h4>Creative Agency</h4>
+                <h4>{{ project.project_name }}</h4>
                 <h4 class="subheading">UX Developer</h4>
               </div>
               <div class="timeline-body">
@@ -275,6 +330,8 @@
               </div>
             </div>
           </li>
+          {% endfor %}
+          <!-- 
           <li class="timeline-inverted">
             <div class="timeline-image">
               <h4>Nov 2011 <br>
@@ -306,7 +363,8 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diamcommodo nibh ante facilisis.</p>
               </div>
             </div>
-          </li>
+          </li> 
+          -->
         </ul>
       </div>
     </div>
@@ -375,6 +433,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 <!-- Contact Section -->
 <div id="contact" class="text-center">
   <div class="container">
