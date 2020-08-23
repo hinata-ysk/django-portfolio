@@ -10,8 +10,16 @@ from .models import (
     Portfolio,
     PortfolioTag,
     Project,
-    ProjectTag
+    ProjectTag,
+    Skill,
+    SkillLevel
 )
+
+import plotly.express as px
+from plotly.offline import plot
+import plotly.graph_objects as go
+import pandas as pd
+from django_pandas.io import read_frame
 
 def index(request):
     layout = Layout.objects.filter(author=request.user).first()
@@ -21,6 +29,8 @@ def index(request):
     portfolio_tags = PortfolioTag.objects.filter(author=request.user).order_by('published_date')
     projects = Project.objects.filter(author=request.user).order_by('published_date')
     project_tags = ProjectTag.objects.filter(author=request.user).order_by('published_date')
+    skills = Skill.objects.filter(author=request.user).order_by('published_date')
+    skill_levels = SkillLevel.objects.all().order_by('level')
 
     if (not layout) or (not about_info):
         return redirect('accounts:logout')        
@@ -33,6 +43,54 @@ def index(request):
         tag_list = Tag.objects.filter(pk__in=list(portfolio_tag_pk_list)).values_list('tag', flat=True)
         portfolio_tag_maps[portfolio_pk] = ' '.join(list(tag_list))
 
+    skill_charts = []
+    for classification in skills.values_list('classification').order_by('classification').distinct():
+        df = read_frame(skills.filter(classification=classification), fieldnames=['skill_name', 'level', 'level__level'])
+        # fig = px.line_polar(
+        #     df,
+        #     r='level__level',
+        #     theta='skill_name',
+        #     # title=classification[0],
+        #     # hover_name='test',
+        #     # line_close=True,
+        #     # color_discrete_sequence=px.colors.sequential.Plasma_r,
+        #     # template="plotly_dark",
+        #     # range_r=[0,5]
+        #     )
+        # fig = go.Figure(go.Scatterpolar(
+        #     r=df['level__level'],
+        #     theta=df['skill_name'],
+        # ))
+        fig = go.Figure(go.Scatterpolar(
+            name = classification[0],
+            r = df['level__level'],
+            theta = df['skill_name'],
+            opacity=1,#不透明度
+            mode='lines+markers',
+            text=df['level'],
+            hoverinfo='theta+text'
+            ))
+        fig.update_traces(fill='toself')
+        fig.update_layout(template='plotly_dark')
+        fig.update_layout(
+            paper_bgcolor='rgba(0,0,0,0)',
+            polar = dict(
+                radialaxis = dict(range=[0, 5], showticklabels=True,tickfont=dict(size=15)),
+                angularaxis = dict(showticklabels=True,tickfont=dict(size=20))
+            ),
+            # title={
+            #     'text': "Plot Title",
+            #     'y':0.9,
+            #     'x':0.5,
+            #     'xanchor': 'center',
+            #     'yanchor': 'top'}
+            title=dict(text='<b>{0}</b>'.format(classification[0]), y=0.9, x=0.5, xanchor='center', yanchor='bottom'),
+            font=dict(size=25)
+        )
+        chart_html = plot(fig, output_type='div', include_plotlyjs=False)
+        skill_charts.append(chart_html)
+
+
     context = {
         'layout' : layout,
         'about_info' : about_info,
@@ -41,6 +99,8 @@ def index(request):
         'portfolio_tags' : portfolio_tags,
         'portfolio_tag_maps' : portfolio_tag_maps,
         'projects' : projects,
+        'skill_levels' : skill_levels,
         'project_tags' : project_tags,
+        'skill_charts' : skill_charts,
     }
     return render(request, 'portfolio/base.html', context)
