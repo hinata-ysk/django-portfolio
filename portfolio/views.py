@@ -46,21 +46,6 @@ def index(request):
     skill_charts = []
     for classification in skills.values_list('classification').order_by('classification').distinct():
         df = read_frame(skills.filter(classification=classification), fieldnames=['skill_name', 'level', 'level__level'])
-        # fig = px.line_polar(
-        #     df,
-        #     r='level__level',
-        #     theta='skill_name',
-        #     # title=classification[0],
-        #     # hover_name='test',
-        #     # line_close=True,
-        #     # color_discrete_sequence=px.colors.sequential.Plasma_r,
-        #     # template="plotly_dark",
-        #     # range_r=[0,5]
-        #     )
-        # fig = go.Figure(go.Scatterpolar(
-        #     r=df['level__level'],
-        #     theta=df['skill_name'],
-        # ))
         fig = go.Figure(go.Scatterpolar(
             name = classification[0],
             r = df['level__level'],
@@ -87,7 +72,7 @@ def index(request):
             title=dict(text='<b>{0}</b>'.format(classification[0]), y=0.9, x=0.5, xanchor='center', yanchor='bottom'),
             font=dict(size=25)
         )
-        chart_html = plot(fig, output_type='div', include_plotlyjs=False)
+        chart_html = plot(fig, config={'displayModeBar':False}, output_type='div', include_plotlyjs=False)
         skill_charts.append(chart_html)
 
 
@@ -104,3 +89,6 @@ def index(request):
         'skill_charts' : skill_charts,
     }
     return render(request, 'portfolio/base.html', context)
+
+def test(request):
+    return render(request, 'portfolio/test.html')      
