@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'pythonanywhere']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,10 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'todo.apps.TodoConfig',
-    'portfolio.apps.PortfolioConfig',
     'customauth.apps.CustomauthConfig',
-    'accounts.apps.AccountsConfig',
+    'portfolio.apps.PortfolioConfig',
     'bootstrap4',
 ]
 
@@ -127,11 +124,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-
-# LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'portfolio:index'
-LOGOUT_REDIRECT_URL = 'accounts:login'
 
 AUTH_USER_MODEL = 'customauth.MyUser'
 

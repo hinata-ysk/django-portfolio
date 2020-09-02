@@ -4,7 +4,7 @@ from django.contrib.auth.models import (
 )
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, date_of_birth, password=None):
+    def create_user(self, email, name, date_of_birth, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -14,6 +14,7 @@ class MyUserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
+            name=name,
             date_of_birth=date_of_birth,
         )
 
@@ -21,7 +22,7 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, date_of_birth, password):
+    def create_superuser(self, email, name, date_of_birth, password):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
@@ -29,6 +30,7 @@ class MyUserManager(BaseUserManager):
         user = self.create_user(
             email,
             password=password,
+            name=name,
             date_of_birth=date_of_birth,
         )
         user.is_admin = True
@@ -37,27 +39,28 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
-    email = models.EmailField(
-        verbose_name='email address',
-        max_length=255,
-        unique=True,
-    )
+    email = models.EmailField(verbose_name='email address',max_length=255,unique=True)
+    name = models.CharField(max_length=20, unique=True)
     date_of_birth = models.DateField()
+    favicon = models.ImageField(upload_to='customauth', null=True, blank=True)
+    avater = models.ImageField(upload_to='customauth', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['date_of_birth']
+    REQUIRED_FIELDS = ['name','date_of_birth']
 
     def get_full_name(self):
         # The user is identified by their email address
         return self.email
 
     def get_short_name(self):
-        # The user is identified by their email address
-        return self.email
+        if self.name:
+            return self.name
+        else:
+            return self.email
 
     def __str__(self):              # __unicode__ on Python 2
         return self.email

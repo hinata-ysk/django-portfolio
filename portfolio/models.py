@@ -3,18 +3,6 @@ from django.utils import timezone
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-class Layout(models.Model):
-    author = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    about_me = models.BooleanField(verbose_name='自己紹介', default=True)
-    skill = models.BooleanField(verbose_name='スキル' ,default=True)
-    portfolio = models.BooleanField(verbose_name='ポートフォリオ', default=True)
-    resume = models.BooleanField(verbose_name='履歴' ,default=True)
-    created_date = models.DateTimeField(verbose_name='作成日時', default=timezone.now, editable=False)
-    published_date = models.DateTimeField(verbose_name='更新日時', blank=True, null=True)
-    
-    def __str__(self):
-        return self.author.get_short_name()
-
 class AboutInfo(models.Model):
     author = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(verbose_name='タイトル', max_length=100)
@@ -24,7 +12,7 @@ class AboutInfo(models.Model):
     top_image = models.ImageField(verbose_name='Top画像' , upload_to='portfolio/about_info/top', default='def_top_image.png')
     icon = models.ImageField(verbose_name='アイコン画像' , upload_to='portfolio/about_info', default='def_icon.png')
     favicon = models.ImageField(verbose_name='アイコン画像(favicon)' , upload_to='portfolio/about_info', default='def_favicon.png')
-    text = models.TextField(verbose_name='説明文', max_length=400)
+    description = models.TextField(verbose_name='説明文', max_length=400)
     website = models.URLField(verbose_name='ウェブサイト', max_length=200)
     twitter = models.URLField(verbose_name='Twitter URL', max_length=200)
     github = models.URLField(verbose_name='GitHub URL', max_length=200)
@@ -46,8 +34,10 @@ class Tag(models.Model):
 class Portfolio(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(verbose_name='タイトル', max_length=100, blank=False, null=False)
-    sub_title = models.CharField(verbose_name='サブタイトル', max_length=100, blank=True, null=False)
-    image = models.ImageField(verbose_name='アイコン画像' , upload_to='portfolio/portfolio', default='portfolio/portfolio/def.png')
+    thumbnail_image = models.ImageField(verbose_name='イメージ画像' , upload_to='portfolio/portfolioImage', blank=True, null=True)
+    discription = models.TextField(verbose_name='解説', max_length=500, blank=True, null=False)
+    github_url = models.URLField(verbose_name='GitHub URL', max_length=200, blank=True, null=False)
+    demo_url = models.URLField(verbose_name='Demo URL', max_length=200, blank=True, null=False)
     created_date = models.DateTimeField(verbose_name='作成日時', default=timezone.now, editable=False)
     published_date = models.DateTimeField(verbose_name='更新日時', blank=True, null=True)
 
@@ -57,6 +47,30 @@ class Portfolio(models.Model):
 
     def __str__(self):
         return self.title
+
+class PortfolioImage(models.Model):
+
+    class DisplayOrder(models.IntegerChoices):
+        FIRST = 1
+        SECOND = 2
+        THERD = 3
+
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+    display_order = models.IntegerField(choices=DisplayOrder.choices)
+    image = models.ImageField(verbose_name='イメージ画像' , upload_to='portfolio/portfolioImage', blank=True, null=True)
+    created_date = models.DateTimeField(verbose_name='作成日時', default=timezone.now, editable=False)
+    published_date = models.DateTimeField(verbose_name='更新日時', blank=True, null=True)
+
+    class Meta:
+        unique_together=(('author','portfolio','display_order'))
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return "{0}:{1}".format(self.portfolio.title, self.display_order)
 
 class PortfolioTag(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
