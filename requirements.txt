@@ -2,5 +2,4 @@ Django==3.0.7
 django-bootstrap4
 Pillow
 plotly
-pandas
 django_pandas

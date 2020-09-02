@@ -18,7 +18,6 @@ from .models import (
 import plotly.express as px
 from plotly.offline import plot
 import plotly.graph_objects as go
-import pandas as pd
 from django_pandas.io import read_frame
 
 def PortfolioView(request,name):
