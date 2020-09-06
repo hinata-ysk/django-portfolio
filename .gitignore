@@ -7,7 +7,3 @@ db.sqlite3
 .DS_Store
 /media/*
 !/media
-customauth/migrations/*.py
-!customauth/__init__.py
-portfolio/migrations/*.py
-!portfolio/migrations/__init__.py
