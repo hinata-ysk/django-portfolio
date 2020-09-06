@@ -5,12 +5,26 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ user.get_short_name }}'s Portfolio Site</title>
-    <meta name="description" content="{{ user.get_short_name }}'s Portfolio Site">
+    <title>{{ about_info.author.get_short_name }}'s Portfolio Site</title>
+    <meta name="description" content="{{ about_info.author..get_short_name }}'s Portfolio Site. This site created Django.">
     <meta name="author" content="Hinata System Solutions">
 
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@{{ about_info.twitter }}">
+    <meta name="twitter:creator" content="@{{ about_info.twitter }}">
+    <meta name="twitter:title" content="{{ about_info.author.get_short_name }}'s Portfolio Site">
+    <meta name="twitter:description" content="{{ about_info.author..get_short_name }}'s Portfolio Site. This site created Django.">
+    <meta name="twitter:image:src" content="{{ about_info.sns_card_image.url }}">
+
+    <!-- Other SNS Card -->
+    <meta property="og:url" content="#" />
+    <meta property="og:title" content="記事のタイトル" />
+    <meta property="og:description" content="記事の要約（ディスクリプション）" />
+    <meta property="og:image" content="画像のURL" />
+
     <!-- Favicons -->
-    <link rel="icon" href="{{ user.favicon.url }}" type="image/x-icon">
+    <link rel="icon" href="{{ about_info.author.favicon.url }}" type="image/x-icon">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -30,7 +44,7 @@
     <!-- Header -->
     <header>
         <nav id="navbar-fixed-top" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="{% url 'portfolio:portfolio' user.name %}#">
+            <a class="navbar-brand" href="{% url 'portfolio:portfolio' about_info.author.name %}#">
                 <img src="{{ about_info.favicon.url }}" width="30" height="30"
                     class="d-inline-block align-top rounded-circle pr-1" alt="Logo">{{ about_info.title }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -39,18 +53,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' user.name %}#about"><i
+                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' about_info.author.name %}#about"><i
                                 class="fas fa-user-circle pr-2"></i>About</a>
                     </li>
-                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' user.name %}#skill"><i
+                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' about_info.author.name %}#skill"><i
                                 class="fas fa-list-alt pr-2"></i>Skills</a>
                     </li>
-                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' user.name %}#portfolio"><i
+                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' about_info.author.name %}#portfolio"><i
                                 class="fas fa-laptop-code pr-2"></i>Portfolios</a> </li>
-                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' user.name %}#resume"><i
+                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' about_info.author.name %}#resume"><i
                                 class="fas fa-briefcase pr-2"></i>Works</a>
                     </li>
-                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' user.name %}#contact"><i
+                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' about_info.author.name %}#contact"><i
                                 class="fas fa-at pr-2"></i>Job Request</a></li>
                 </ul>
             </div>

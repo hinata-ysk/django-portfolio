@@ -23,10 +23,10 @@ from django_pandas.io import read_frame
 def PortfolioView(request,name):
     about_info = AboutInfo.objects.filter(author__name=name).first()
     tags = Tag.objects.filter(author__name=name).order_by('published_date')
-    portfolios = Portfolio.objects.filter(author__name=name).order_by('published_date')
+    portfolios = Portfolio.objects.filter(author__name=name).order_by('-published_date')
     portfolio_images = PortfolioImage.objects.filter(author__name=name)
     portfolio_tags = PortfolioTag.objects.filter(author__name=name).order_by('published_date')
-    projects = Project.objects.filter(author__name=name).order_by('published_date')
+    projects = Project.objects.filter(author__name=name).order_by('-published_date')
     project_tags = ProjectTag.objects.filter(author__name=name).order_by('published_date')
     skills = Skill.objects.filter(author__name=name).order_by('published_date')
     skill_levels = SkillLevel.objects.all().order_by('level')

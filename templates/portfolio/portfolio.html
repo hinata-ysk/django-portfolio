@@ -20,25 +20,25 @@
       </h1>
       <h1 class="mb-5 text-white font-italic">{{ about_info.sub_text | linebreaksbr }}</h1>
       <a class="btn btn-dark btn-xl js-scroll-trigger" href="#about">
-        <i class="fas fa-user-circle pr-2"></i>About {{ user.get_short_name }}
+        <i class="fas fa-user-circle pr-2"></i>About {{ about_info.author.name }}
       </a>
     </div>
   </div>
   <!-- About Section -->
   <div id="about" class="jumbotron text-center mb-0 bg-light">
     <div class="container">
-      <h1 class="jumbotron-heading"><i class="fas fa-user-circle pr-3"></i>About {{ user.get_short_name }}</h1>
+      <h1 class="jumbotron-heading"><i class="fas fa-user-circle pr-3"></i>About {{ about_info.author.name }}</h1>
       <hr class="my-4">
-      <img src="{{ about_info.icon.url }}" width="200" height="200"
+      <img src="{{ about_info.avater.url }}" width="200" height="200"
         class="img-fluid img-thumbnail rounded-circle shadow m-3">
       <p class="lead text-muted">{{ about_info.description}}</p>
       <div class="d-flex justify-content-center">
         <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="Twitter">
-          <a href="{{ about_info.twitter }}"><span style="font-size: 3rem; color: #1DA1F2"><i
+          <a href="https://twitter.com/{{ about_info.twitter }}"><span style="font-size: 3rem; color: #1DA1F2"><i
                 class="fab fa-twitter"></i></span></a>
         </div>
         <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="GitHub">
-          <a href="{{ about_info.github }}"><span style="font-size: 3rem; color:#333"><i
+          <a href="https://github.com/{{ about_info.github }}"><span style="font-size: 3rem; color:#333"><i
                 class="fab fa-github"></i></span></a>
         </div>
         <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="Blog">
@@ -110,7 +110,7 @@
                     </div>
                     <div class="d-flex justify-content-center">
                       <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="Demo">
-                        <a href="{{ portfolio.github_url }}"><span style="font-size: 2rem; color:#333"><i
+                        <a href="{{ portfolio.demo_url }}"><span style="font-size: 2rem; color:#333"><i
                               class="fas fa-video"></i></span></a>
                       </div>
                       <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="GitHub">
@@ -152,12 +152,7 @@
                           {% else %}
                           <div class="carousel-item">
                             {% endif %}
-                            <img class="img-fluid d-block w-100" src="{{ portfolio_image.image.url }}"
-                              alt="First slide">
-                            <!-- <div class="carousel-caption d-none d-md-block">
-                            <h5>概要説明</h5>
-                            <p>詳細説明</p> 
-                          </div>-->
+                            <img class="img-fluid d-block w-100" src="{{ portfolio_image.image.url }}">
                           </div>
                           {% endfor %}
                         </div>
@@ -217,17 +212,17 @@
             <table class="table">
               <tbody>
                 <tr>
-                  <td class="h3 align-middle">Send Mail</td>
-                  <td><span style="font-size: 3rem;"><i class="fas fa-angle-double-right"></i></td>
-                  <td class="h4 align-middle text-center">準備中</td>
-                <tr>
                   <td class="h3 align-middle">Twitter DM</td>
                   <td><span style="font-size: 3rem;"><i class="fas fa-angle-double-right"></i></td>
                   <td class="text-center">
-                    <a href="{{ about_info.twitter }}"><span style="font-size: 3rem; color: #1DA1F2"><i
+                    <a href="https://twitter.com/{{ about_info.twitter }}"><span style="font-size: 3rem; color: #1DA1F2"><i
                           class="fab fa-twitter"></i></span></a>
                   </td>
                 </tr>
+                <tr>
+                  <td class="h3 align-middle">Send Mail</td>
+                  <td><span style="font-size: 3rem;"><i class="fas fa-angle-double-right"></i></td>
+                  <td class="h4 align-middle text-center">準備中</td>
                 <tr>
                   <td class="h3 align-middle">Contact Form</td>
                   <td><span style="font-size: 3rem;"><i class="fas fa-angle-double-right"></i></td>
