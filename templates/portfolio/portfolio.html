@@ -83,7 +83,7 @@
       <hr class="my-4">
       <div class="row">
         {% for portfolio in portfolios %}
-        <div class="col-sm-6 col-md-4 col-lg-4">
+        <div class="col-sm-6 col-md-4 col-lg-4 mb-3">
           <div class="card shadow mb-2 h-100" data-toggle="modal" data-target="#porttfolioModal-{{ portfolio.pk }}"
             data-toggle="tooltip" title="選択で詳細">
             <img class="card-img-top" src="{{ portfolio.thumbnail_image.url }}" class="img-fluid h-70"

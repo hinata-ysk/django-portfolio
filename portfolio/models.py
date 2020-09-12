@@ -35,6 +35,7 @@ class Tag(models.Model):
 class Portfolio(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(verbose_name='タイトル', max_length=100, blank=False, null=False)
+    sub_title = models.CharField(verbose_name='サブタイトル', max_length=200, blank=False, null=False)
     thumbnail_image = models.ImageField(verbose_name='イメージ画像' , upload_to='portfolio/portfolioImage', blank=True, null=True)
     discription = models.TextField(verbose_name='解説', max_length=500, blank=True, null=False)
     github_url = models.URLField(verbose_name='GitHub URL', max_length=200, blank=True, null=False)
