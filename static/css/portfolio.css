@@ -5,3 +5,7 @@ html {
 body {
     position: relative;
   }
+
+hero {
+  background:url('{{ about_info.top_image.url }}') center no-repeat; background-size: cover;
+}

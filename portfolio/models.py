@@ -50,28 +50,22 @@ class Portfolio(models.Model):
         return self.title
 
 class PortfolioImage(models.Model):
-
-    class DisplayOrder(models.IntegerChoices):
-        FIRST = 1
-        SECOND = 2
-        THERD = 3
-
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
-    display_order = models.IntegerField(choices=DisplayOrder.choices)
+    display_sort = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     image = models.ImageField(verbose_name='イメージ画像' , upload_to='portfolio/portfolioImage', blank=True, null=True)
     created_date = models.DateTimeField(verbose_name='作成日時', default=timezone.now, editable=False)
     published_date = models.DateTimeField(verbose_name='更新日時', blank=True, null=True)
 
     class Meta:
-        unique_together=(('author','portfolio','display_order'))
+        unique_together=(('author','portfolio','display_sort'))
 
     def publish(self):
         self.published_date = timezone.now()
         self.save()
 
     def __str__(self):
-        return "{0}:{1}".format(self.portfolio.title, self.display_order)
+        return "{0}:{1}".format(self.portfolio.title, self.display_sort)
 
 class PortfolioTag(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
