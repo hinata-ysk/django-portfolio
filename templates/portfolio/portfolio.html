@@ -84,20 +84,20 @@
       <div class="row">
         {% for portfolio in portfolios %}
         <div class="col-sm-6 col-md-4 col-lg-4">
-          <div class="card shadow mb-2" data-toggle="modal" data-target="#porttfolioModal-{{ portfolio.pk }}"
+          <div class="card shadow mb-2 h-100" data-toggle="modal" data-target="#porttfolioModal-{{ portfolio.pk }}"
             data-toggle="tooltip" title="選択で詳細">
             <img class="card-img-top" src="{{ portfolio.thumbnail_image.url }}" class="img-fluid h-70"
               alt="{{ portfolio.title }}" style="height: 225px; width: 100%; display: block;">
-            <div class="card-header h-10">{{ portfolio.title }}</div>
-            <div class="card-body h-20">
+            <div class="card-header">{{ portfolio.title }}</div>
+            <div class="card-body">
               <p class="card-text">{{ portfolio.sub_title }}</p>
-              <footer class="footer">
-                {% for portfoliotag in portfolio.portfoliotag_set.all %}
-                <div class="badge badge-info text-wrap">
-                  {{ portfoliotag.tag }}
-                </div>
-                {% endfor %}
-              </footer>
+            </div>
+            <div class="card-footer">
+              {% for portfoliotag in portfolio.portfoliotag_set.all %}
+              <div class="badge badge-info text-wrap">
+                {{ portfoliotag.tag }}
+              </div>
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -201,14 +201,24 @@
               <li>
                 <div class="card w-100">
                   <div class="card-header">
-                    {{ project.project_name }}
-                    <div class="float-right"></div>
+                    <div class="row">
+                      <div class="col-6 text-left">
+                        {{ project.project_name }}
+                      </div>
+                      <div class="col-6 text-right text-muted">
+                        {{ project.term_from|date:'Y/m' }} ~ {{ project.term_to|date:'Y/m' }}
+                      </div>
+                    </div>
                   </div>
                   <div class="card-body">
                     {{ project.overview }}
                   </div>
-                  <div class="card-footer text-muted">
-                    {{ project.term_from|date:'Y/m' }} ~ {{ project.term_to|date:'Y/m' }}
+                  <div class="card-footer">
+                    {% for projecttag in project.projecttag_set.all %}
+                    <div class="badge badge-info text-wrap">
+                      {{ projecttag.tag }}
+                    </div>
+                    {% endfor %}
                   </div>
                 </div>
               </li>

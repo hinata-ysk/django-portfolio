@@ -26,7 +26,7 @@ def PortfolioView(request,name):
     portfolios = Portfolio.objects.filter(author__name=name).order_by('-published_date')
     portfolio_images = PortfolioImage.objects.filter(author__name=name).order_by('display_sort')
     portfolio_tags = PortfolioTag.objects.filter(author__name=name).order_by('published_date')
-    projects = Project.objects.filter(author__name=name).order_by('-term_from')
+    projects = Project.objects.filter(author__name=name).order_by('-term_to')
     project_tags = ProjectTag.objects.filter(author__name=name).order_by('published_date')
     skills = Skill.objects.filter(author__name=name).order_by('published_date')
     skill_levels = SkillLevel.objects.all().order_by('level')
