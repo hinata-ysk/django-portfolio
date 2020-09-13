@@ -6,22 +6,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ about_info.author.get_short_name }}'s Portfolio Site</title>
-    <meta name="description" content="{{ about_info.author.get_short_name }}'s Portfolio Site. This site created Django.">
+    <meta name="description" content="{{ about_info.sub_text }}">
     <meta name="author" content="Hinata System Solutions">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@{{ about_info.twitter }}">
-    <meta name="twitter:creator" content="@{{ about_info.twitter }}">
-    <meta name="twitter:title" content="{{ about_info.author.get_short_name }}'s Portfolio Site">
-    <meta name="twitter:description" content="{{ about_info.author.get_short_name }}'s Portfolio Site. This site created Django.">
-    <meta name="twitter:image:src" content="{{ about_info.sns_card_image.url }}">
 
     <!-- Other SNS Card -->
-    <meta property="og:url" content="#" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <meta property="og:title" content="{{ about_info.author.get_short_name }}'s Portfolio Site." />
-    <meta property="og:description" content="{{ about_info.author..get_short_name }}'s Portfolio Site. This site created Django." />
-    <meta property="og:image" content="{{ about_info.sns_card_image.url }}" />
+    <meta property="og:description" content="{{ about_info.sub_text }}" />
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ about_info.sns_card_image.url }}" />
 
     <!-- Favicons -->
     <link rel="icon" href="{{ about_info.author.favicon.url }}" type="image/x-icon">
