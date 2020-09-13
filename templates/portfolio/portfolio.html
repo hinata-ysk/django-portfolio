@@ -33,21 +33,21 @@
         class="img-fluid img-thumbnail rounded-circle shadow m-3">
       <p class="lead text-muted">{{ about_info.description | linebreaksbr }}</p>
       <div class="d-flex justify-content-center">
-        {% if not about_info.twitter %}
+        {% if about_info.twitter %}
         <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="Twitter">
           <a href="https://twitter.com/{{ about_info.twitter }}"><span style="font-size: 3rem; color: #1DA1F2"><i
                 class="fab fa-twitter"></i></span></a>
         </div>
         {% endif %}
-        {% if not about_info.github %}
+        {% if about_info.github %}
         <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="GitHub">
           <a href="https://github.com/{{ about_info.github }}"><span style="font-size: 3rem; color:#333"><i
                 class="fab fa-github"></i></span></a>
         </div>
         {% endif %}
-        {% if not about_info.website %}
+        {% if about_info.website %}
         <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="Blog">
-          <a href="{{ website }}"><span style="font-size: 3rem; color: #1d6a96;"><i
+          <a href="{{ about_info.website }}"><span style="font-size: 3rem; color: #1d6a96;"><i
                 class="fab fa-wordpress"></i></span></a>
         </div>
         {% endif %}
@@ -199,10 +199,12 @@
             <ul class="timeline">
               {% for project in projects %}
               {% if forloop.counter == 4 %}
-              <p>
-                <a class="btn px-5" data-toggle="collapse" href="#collapseResume" role="button"
-                  aria-expanded="false" aria-controls="collapseResume">
-                  <span class="text-white" style="font-size: 3rem;"><i class="fas fa-angle-double-down"></i></span>
+              <p id="collapseReumeButton">
+                <a class="btn px-5" data-toggle="collapse" href="#collapseResume" role="button" aria-expanded="false"
+                  aria-controls="collapseResume">
+                  <span class="text-white" style="font-size: 3rem;">
+                    <i class="fas fa-angle-double-down"></i>
+                  </span>
                 </a>
               </p>
               {% endif %}
