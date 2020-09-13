@@ -198,7 +198,19 @@
           <div class="col-md-6 offset-md-3">
             <ul class="timeline">
               {% for project in projects %}
+              {% if forloop.counter == 4 %}
+              <p>
+                <a class="btn px-5" data-toggle="collapse" href="#collapseResume" role="button"
+                  aria-expanded="false" aria-controls="collapseResume">
+                  <span class="text-white" style="font-size: 3rem;"><i class="fas fa-angle-double-down"></i></span>
+                </a>
+              </p>
+              {% endif %}
+              {% if forloop.counter >= 4 %}
+              <li class="collapse" id="collapseResume">              
+              {% else %}
               <li>
+              {% endif %}
                 <div class="card w-100">
                   <div class="card-header">
                     <div class="row">

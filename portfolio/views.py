@@ -49,7 +49,7 @@ def PortfolioView(request,name):
             paper_bgcolor='rgba(0,0,0,0)',
             polar = dict(
                 radialaxis = dict(range=[0, 5], showticklabels=True,tickfont=dict(size=15)),
-                angularaxis = dict(showticklabels=True,tickfont=dict(size=20))
+                angularaxis = dict(showticklabels=True,tickfont=dict(size=17))
             ),
             title=dict(text='<b>{0}</b>'.format(classification[0]), y=0.9, x=0.5, xanchor='center', yanchor='bottom'),
             font=dict(size=25)
