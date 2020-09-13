@@ -134,9 +134,9 @@
                       <h4>TECH Category</h4>
                       <hr>
                     </div>
-                    {% for tag in tags %}
+                    {% for portfoliotag in portfolio.portfoliotag_set.all %}
                     <div class="badge badge-info text-wrap">
-                      {{ tag.tag }}
+                      {{ portfoliotag.tag }}
                     </div>
                     {% endfor %}
                   </div>
