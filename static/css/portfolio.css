@@ -6,6 +6,29 @@ body {
     position: relative;
   }
 
-hero {
-  background:url('{{ about_info.top_image.url }}') center no-repeat; background-size: cover;
+.modal .close-button {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 2147483647;
+  font-size: 2rem;
+  color:#333;
+}
+
+.card-zoom{
+  overflow:hidden;
+  transition:0.5s all;
+}
+.card-zoom:hover{
+  transform:scale(1.1,1.1);
+  transition:0.5s all;
+}
+
+.chart-zoom{
+  overflow:hidden;
+  transition:0.5s all;
+}
+.chart-zoom:hover{
+  transform:scale(1.1,1.1);
+  transition:0.5s all;
 }
