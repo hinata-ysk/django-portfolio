@@ -1,6 +1,17 @@
-{% extends 'portfolio/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load portfolio_extras %}
+
+{% block sns_card %}
+{{ block.super }}
+{% endblock %}
+
+{% block extra_stylesheet %}
+<!-- Custom Stylesheet -->
+<link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+{% endblock %}
+
 
 {% block extra_body_top %}
 <!-- plotly -->
@@ -262,19 +273,20 @@
                   <td class="h3 align-middle">Twitter DM</td>
                   <td><span style="font-size: 3rem;"><i class="fas fa-angle-double-right"></i></td>
                   <td class="text-center">
-                    <a href="https://twitter.com/{{ about_info.twitter }}"><span
-                        style="font-size: 3rem; color: #1DA1F2"><i class="fab fa-twitter"></i></span></a>
+                    <a href="https://twitter.com/{{ about_info.twitter }}">
+                      <span style="font-size: 3rem; color: #1DA1F2"><i class="fab fa-twitter"></i></span>
+                    </a>
                   </td>
                 </tr>
                 <tr>
-                  <td class="h3 align-middle">Send Mail</td>
-                  <td><span style="font-size: 3rem;"><i class="fas fa-angle-double-right"></i></td>
-                  <td class="h4 align-middle text-center">準備中</td>
-                <tr>
                   <td class="h3 align-middle">Contact Form</td>
                   <td><span style="font-size: 3rem;"><i class="fas fa-angle-double-right"></i></td>
-                  <td class="h4 align-middle text-center">準備中</td>
-                </tr>
+                    <td class="text-center">
+                      <a href="{% url 'contact:contact_form' about_info.author.name %}">
+                        <span style="font-size: 3rem; color: #333"><i class="far fa-envelope"></i></span>
+                      </a>
+                    </td>
+                  </tr>
               </tbody>
             </table>
           </div>

@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'hinataysk.pythonanywhere.com']
 
+# Send Mail[Gmail] definition
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'hinata.ysk@gmail.com'
+EMAIL_HOST_PASSWORD = 'uyzmgamnxchmswqf'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_stylesheet %}
+<!-- Custom Stylesheet -->
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="min-vh-100 d-flex" style="background-color:#7bc3d1">
+    <div class="container mt-5 pt-5">
+      <h1 class="jumbotron-heading text-white"><i class="far fa-address-card pr-3"></i>Contact To {{ about_info.author.name }}</h1>
+      <hr class="my-4">
+      <div class="row">
+        <div class="col-md-8">
+          <form method="POST">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">送信</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+{% block footer %}
+<footer class="footer fixed-bottom bg-light">
+    <div class="container">
+        <p class="text-muted text-center">Copyright &copy; 2020 Hinata System Solutions</p>
+    </div>
+</footer>
+{% endblock %}

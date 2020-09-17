@@ -70,6 +70,3 @@ def PortfolioView(request,name):
         'skill_charts' : skill_charts,
     }
     return render(request, 'portfolio/portfolio.html', context)
-
-def test(request):
-    return render(request, 'portfolio/test.html')      

@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ about_info.author.get_short_name }}'s Portfolio Site</title>
+    <meta name="description" content="{{ about_info.sub_text }}">
+    <meta name="author" content="Hinata System Solutions">
+
+    <!-- Favicons -->
+    <link rel="icon" href="{{ about_info.author.favicon.url }}" type="image/x-icon">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+        integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    {% block sns_card %}
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@{{ about_info.twitter }}">
+
+    <!-- Other SNS Card -->
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:title" content="{{ about_info.author.get_short_name }}'s Portfolio Site." />
+    <meta property="og:description" content="{{ about_info.sub_text }}" />
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ about_info.sns_card_image.url }}" />
+    {% endblock %}
+
+    {% block extra_stylesheet %}
+    {% endblock %}
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target="#navbar-fixed-top">
+    {% block extra_body_top %}
+    {% endblock %}
+    {% block header %}
+    <!-- Header -->
+    <header>
+        <nav id="navbar-fixed-top" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'portfolio:portfolio' about_info.author.name %}#">
+                <img src="{{ about_info.favicon.url }}" width="30" height="30"
+                    class="d-inline-block align-top rounded-circle pr-1" alt="Logo">{{ about_info.title }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' about_info.author.name %}#about"><i
+                                class="fas fa-user-circle pr-2"></i>About</a>
+                    </li>
+                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' about_info.author.name %}#skill"><i
+                                class="fas fa-list-alt pr-2"></i>Skills</a>
+                    </li>
+                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' about_info.author.name %}#portfolio"><i
+                                class="fas fa-laptop-code pr-2"></i>Portfolios</a> </li>
+                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' about_info.author.name %}#resume"><i
+                                class="fas fa-briefcase pr-2"></i>Works</a>
+                    </li>
+                    <li class="nav-item px-1"> <a class="nav-link" href="{% url 'portfolio:portfolio' about_info.author.name %}#contact"><i
+                                class="fas fa-at pr-2"></i>Job Request</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    {% block footer %}
+    <footer class="footer bg-light">
+        <div class="container">
+            <p class="text-muted text-center">Copyright &copy; 2020 Hinata System Solutions</p>
+        </div>
+    </footer>
+    {% endblock %}
+    <!-- BootStrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+    <!-- Custom Script -->
+    <script src="{% static 'js/portfolio.js' %}"></script>
+
+    {% block extra_body_bottom %}
+    {% endblock %}
+</body>
+
+</html>
