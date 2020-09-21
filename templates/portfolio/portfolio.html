@@ -28,7 +28,7 @@
   <div id="about" class="jumbotron text-center mb-0 bg-light">
     <div class="container">
       <h1 class="jumbotron-heading"><i class="fas fa-user-circle pr-3"></i>About {{ about_info.author.name }}</h1>
-      <hr class="my-4">
+      <hr class="under-bar">
       <img src="{{ about_info.avater.url }}" width="200" height="200"
         class="img-fluid img-thumbnail rounded-circle shadow m-3">
       <p class="lead text-muted">{{ about_info.description | linebreaksbr }}</p>
@@ -55,10 +55,10 @@
     </div>
   </div>
   <!-- Skills Section -->
-  <div id="skill" class="jumbotron text-center mb-0" style="background-color:#7bc3d1">
+  <div id="skill" class="jumbotron text-center mb-0">
     <div class="container-fluid">
       <h1 class="jumbotron-heading text-white"><i class="fas fa-list-alt pr-3"></i>Skills</h1>
-      <hr class="my-4">
+      <hr class="under-bar">
       <div class="row">
         {% for skill_chart in skill_charts %}
         <div class="col-sm-12 col-md-6 col-lg-4">
@@ -80,9 +80,9 @@
   </div>
   <!-- Portfolio Section -->
   <div id="portfolio" class="jumbotron text-center mb-0 bg-light">
-    <div class="container">
+    <div class="container-lg">
       <h1 class="jumbotron-heading"><i class="fas fa-laptop-code pr-3"></i>Portfolios</h1>
-      <hr class="my-4">
+      <hr class="under-bar">
       <div class="row">
         {% for portfolio in portfolios %}
         <div class="col-lg-6 col-xl-4 mb-3">
@@ -108,83 +108,109 @@
           aria-labelledby="porttfolioModalTitle-{{ portfolio.pk }}" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
             <div class="modal-content">
-              <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="Close">
-                <a class="close-button fly" data-dismiss="modal">
+              <div class="px-2 close-button fly" data-toggle="tooltip" data-placement="bottom" title="Close">
+                <a class="" data-dismiss="modal">
                   <span style="font-size: 2rem;"><i class="fas fa-times-circle"></i></span>
                 </a>  
               </div>
               <div class="modal-body">
                 <div class="row">
-                  <div class="col-lg-4">
-                    <div class="text-center center mx-2">
-                      <h4>{{ portfolio.title }}</h4>
-                      <hr>
+                  <div class="col-lg-5 mb-5">
+                    <div class="row">
+                      <div class="col-12">
+                        <h3 class="jumbotron-heading">{{ portfolio.title }}</h4>
+                        <hr class="under-bar">
+                      </div>  
                     </div>
-                    <div>
-                      {{ portfolio.discription | linebreaksbr }}
+                    <div class="row my-2">
+                      <div class="col-12 text-left">
+                        {{ portfolio.discription | linebreaksbr }}
+                      </div>                        
                     </div>
-                    <div class="d-flex justify-content-center">
-                      {% if portfolio.demo_url %}
-                      <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="Demo">
-                        <a href="{{ portfolio.demo_url }}"><span style="font-size: 2rem; color:#333"><i
-                              class="fas fa-video"></i></span></a>
-                      </div>
-                      {% endif %}
-                      {% if portfolio.github_url %}
-                      <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="GitHub">
-                        <a href="{{ portfolio.github_url }}"><span style="font-size: 2rem; color:#333"><i
-                              class="fab fa-github"></i></span></a>
-                      </div>
-                      {% endif %}
-                    </div>
-                    <div class="text-center center pt-2">
-                      <h4>TECH Category</h4>
-                      <hr>
-                    </div>
-                    {% for portfoliotag in portfolio.portfoliotag_set.all %}
-                    <div class="badge badge-info text-wrap">
-                      {{ portfoliotag.tag }}
-                    </div>
-                    {% endfor %}
-                  </div>
-                  <div class="col-lg-8 h-100">
-                    <div class="text-center center">
-                      <h4>Sample Image</h4>
-                      <hr>
-                    </div>
-                    <div id="carouselIndicators-{{ portfolio.pk }}" class="carousel slide" data-ride="carousel">
-                      <ol class="carousel-indicators">
-                        {% for portfolio_image in portfolio.portfolioimage_set.all %}
-                        {% if forloop.first %}
-                        <li data-target="#carouselIndicators-{{ portfolio.pk }}" data-slide-to="{{ forloop.counter0 }}"
-                          class="active"></li>
-                        {% else %}
-                        <li data-target="#carouselIndicators-{{ portfolio.pk }}" data-slide-to="{{ forloop.counter0 }}">
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                      </ol>
-                      <div class="carousel-inner">
-                        {% for portfolio_image in portfolio.portfolioimage_set.all %}
-                        {% if forloop.first %}
-                        <div class="carousel-item active">
-                          {% else %}
-                          <div class="carousel-item">
-                            {% endif %}
-                            <img class="img-fluid d-block w-100 h-100" src="{{ portfolio_image.image.url }}">
-                          </div>
-                          {% endfor %}
+                    <div class="row mb-5">
+                      <div class="col-12 d-flex justify-content-center">
+                        {% if portfolio.demo_url %}
+                        <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="Demo">
+                          <a href="{{ portfolio.demo_url }}"><span style="font-size: 2rem; color:#333"><i
+                                class="fas fa-video"></i></span></a>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselIndicators-{{ portfolio.pk }}" role="button"
-                          data-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselIndicators-{{ portfolio.pk }}" role="button"
-                          data-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Next</span>
-                        </a>
+                        {% endif %}
+                        {% if portfolio.github_url %}
+                        <div class="px-2" data-toggle="tooltip" data-placement="bottom" title="GitHub">
+                          <a href="{{ portfolio.github_url }}"><span style="font-size: 2rem; color:#333"><i
+                                class="fab fa-github"></i></span></a>
+                        </div>
+                        {% endif %}
+                      </div>                        
+                    </div>
+                    <div class="row my-2">
+                      <div class="col-12 text-center center pt-2">
+                        <h4>TECH Category</h4>
+                        <hr class="under-bar">
+                      </div>                        
+                    </div>
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {% for portfoliotag in portfolio.portfoliotag_set.all %}
+                        <div class="badge badge-info text-wrap">
+                          {{ portfoliotag.tag }}
+                        </div>
+                        {% endfor %}                          
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <!-- <div class="row my-2">
+                      <div class="col-12">
+                        <div id="portfolio_modal_thumbnail" class="d-flex justify-content-center">
+                          {% for portfolio_image in portfolio.portfolioimage_set.all %}
+                          <img class="img-fluid d-block img-thumbnail shadow mx-1 img-zoom" style="height: 75px; width: 75px;" src="{{ portfolio_image.image.url }}" data-slide-to="{{ forloop.counter0 }}">
+                          {% endfor %}  
+                        </div>
+                      </div>  
+                    </div> -->
+                    <div name='portfolio_modal_image' class="row my-2">
+                      <div class="col-12">
+                        <div name="portfolio_modal_thumbnail" class="d-flex justify-content-center mb-2">
+                          {% for portfolio_image in portfolio.portfolioimage_set.all %}
+                          <img class="img-fluid d-block img-thumbnail shadow mx-1 img-zoom" style="height: 75px; width: 75px;" src="{{ portfolio_image.image.url }}" data-slide-to="{{ forloop.counter0 }}">
+                          {% endfor %}  
+                        </div>
+                        <div id="carouselIndicators-{{ portfolio.pk }}" name="carouselIndicators" class="carousel slide" data-ride="carousel">
+                          <ol class="carousel-indicators">
+                            {% for portfolio_image in portfolio.portfolioimage_set.all %}
+                            {% if forloop.first %}
+                            <li data-target="#carouselIndicators-{{ portfolio.pk }}" data-slide-to="{{ forloop.counter0 }}"
+                              class="active"></li>
+                            {% else %}
+                            <li data-target="#carouselIndicators-{{ portfolio.pk }}" data-slide-to="{{ forloop.counter0 }}">
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                          </ol>
+                          <div class="carousel-inner">
+                            {% for portfolio_image in portfolio.portfolioimage_set.all %}
+                            {% if forloop.first %}
+                            <div class="carousel-item active">
+                            {% else %}
+                            <div class="carousel-item">
+                                {% endif %}
+                                <img class="img-fluid d-block w-100 h-100" src="{{ portfolio_image.image.url }}">
+                              </div>
+                              {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselIndicators-{{ portfolio.pk }}" role="button"
+                              data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselIndicators-{{ portfolio.pk }}" role="button"
+                              data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </div>
+                        </div>    
                       </div>
                     </div>
                   </div>
@@ -197,10 +223,10 @@
       </div>
     </div>
     <!-- Resume Section -->
-    <div id="resume" class="jumbotron text-center mb-0" style="background-color:#7bc3d1">
+    <div id="resume" class="jumbotron text-center mb-0">
       <div class="container">
         <h1 class="jumbotron-heading text-white"><i class="fas fa-briefcase pr-3"></i>Works</h1>
-        <hr class="my-4">
+        <hr class="under-bar">
         <div class="row">
           <ul class="timeline w-100">
             {% for project in projects %}
@@ -251,7 +277,7 @@
     <div id="contact" class="jumbotron text-center mb-0 bg-light">
       <div class="container">
         <h1 class="jumbotron-heading"><i class="fas fa-at pr-3"></i>Job Request</h1>
-        <hr class="my-4">
+        <hr class="under-bar">
         <div class="row justify-content-md-center">
           <div class="col-md-6">
             <table class="table">

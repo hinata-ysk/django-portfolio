@@ -35,3 +35,28 @@ body {
   transform:scale(1.1,1.1);
   transition:0.5s all;
 }
+
+.img-zoom {
+  overflow:hidden;
+  transition:0.5s all;
+}
+.img-zoom:hover {
+  transform:scale(1.1,1.1);
+  transition:0.5s all;
+}
+
+.under-bar {
+  height: 4px;
+  width: 70px;
+  border-width : thick !important;
+  border-color: #7bc3d1;
+}
+
+#skill,#resume{
+  background-color:#7bc3d1;
+}
+
+#skill hr,#resume hr{
+  border-color:rgba(255,255,255,0.3) ;
+}
+
